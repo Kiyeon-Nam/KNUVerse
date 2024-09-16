@@ -12,8 +12,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/icon"
-        android:padding="100dp" />
+        android:src="@drawable/ic_splash"
+        android:padding="100dp"
+        android:contentDescription="@string/desc_icon" />
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>
