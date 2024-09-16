@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KNUV</string>
+    <string name="desc_icon">AppIcon</string>
 </resources>
