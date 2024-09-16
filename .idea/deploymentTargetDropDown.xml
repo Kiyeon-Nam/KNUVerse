@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="app">
+        <State />
+      </entry>
+      <entry key="ch10_notification">
+        <State />
+      </entry>
+      <entry key="ch11_jetpack">
+        <State />
+      </entry>
+      <entry key="ch12_material">
+        <State />
+      </entry>
+      <entry key="ch13_activity">
+        <State />
+      </entry>
+      <entry key="ch14_receiver">
+        <State />
+      </entry>
+      <entry key="ch15_outer">
+        <State />
+      </entry>
+      <entry key="ch15_service">
+        <State />
+      </entry>
+      <entry key="ch16_provider">
+        <State />
+      </entry>
+      <entry key="ch17_database">
+        <State />
+      </entry>
+      <entry key="ch18_network">
+        <State />
+      </entry>
+      <entry key="ch19_map">
+        <State />
+      </entry>
+      <entry key="ch20_firebase">
+        <State />
+      </entry>
+      <entry key="ch22_compose">
+        <State />
+      </entry>
+      <entry key="ch6_view">
+        <State />
+      </entry>
+      <entry key="ch7_layout">
+        <State />
+      </entry>
+      <entry key="ch8_event">
+        <State />
+      </entry>
+      <entry key="ch9_resource">
+        <State />
+      </entry>
+      <entry key="test_compose">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>
