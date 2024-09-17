@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">KNUV</string>
     <string name="desc_icon">AppIcon</string>
+    <string name="tb_login">로그인</string>
 </resources>
