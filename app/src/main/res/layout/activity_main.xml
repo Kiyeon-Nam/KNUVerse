@@ -44,6 +44,7 @@
                 android:id="@+id/languageSpinner"
                 android:layout_width="140dp"
                 android:layout_height="30dp"
+                android:background="@drawable/spinner_background"
                 />
 
             <Button

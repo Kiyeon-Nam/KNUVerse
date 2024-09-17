@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter.createFromResource(
             this,
             R.array.language_array,       // 스피너 항목 배열
-            android.R.layout.simple_spinner_item // 기본 스피너 레이아웃
+            R.layout.custom_spinner_item // 커스텀 레이아웃
         )
 
         // 드롭다운을 위한 레이아웃 설정
