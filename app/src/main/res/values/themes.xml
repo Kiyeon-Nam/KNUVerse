@@ -4,5 +4,30 @@
         <item name="colorPrimary">#F8F8FA</item>
     </style>
 
+    <style name="TextStyle_24">
+        <item name="android:textSize">24pt</item>
+        <item name="android:lineSpacingExtra">34pt</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
+    <style name="TextStyle_16">
+        <item name="android:textSize">16pt</item>
+        <item name="android:lineSpacingExtra">24pt</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
+    <style name="TextStyle_12">
+        <item name="android:textSize">12pt</item>
+        <item name="android:lineSpacingExtra">16pt</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
+    <style name="TextStyle_10">
+        <item name="android:textSize">10pt</item>
+        <item name="android:lineSpacingExtra">14pt</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
+
     <style name="Theme.KNUVerse" parent="Base.Theme.KNUVerse" />
 </resources>
