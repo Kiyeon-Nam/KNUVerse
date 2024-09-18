@@ -28,6 +28,8 @@ Firestore.collection("locations").document("documentId").get()
         Log.d("FirestoreData", "Name: $name, Latitude: $latitude, Longitude: $longitude")
     }
 }
+
+//앞선 프래그먼트/액티비티의 이름에 따라 geopoint와 name이 변하도록 해야됨
 val fragment = KakaoMapFragment()
 val bundle = Bundle()
 bundle.putString("name", locationName)
