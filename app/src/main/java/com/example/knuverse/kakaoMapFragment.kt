@@ -11,6 +11,7 @@ import com.kakao.sdk.navi.NaviClient
 import com.kakao.sdk.navi.model.NaviOption
 import com.kakao.sdk.navi.model.CoordType
 import com.kakao.sdk.navi.model.Location
+import android.widget.Button
 
 // 윗부분 중요한 코드 아님
 // TODO: Rename parameter arguments, choose names that match
@@ -73,26 +74,31 @@ class kakaoMapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val name = arguments?.getString("name")
-        val latitude = arguments?.getDouble("latitude")
-        val longitude = arguments?.getDouble("longitude")
+        // 테스트용으로 생성한 버튼이므로 후에 button.setOnClickListener 안에 코드 빼도 됨
+        val button = view.findViewById<Button>(R.id.find_route_button)
 
-        // 앱 설치 상태(카카오내비 호출)
-        if (NaviClient.instance.isKakaoNaviInstalled(requireContext())) {
-            startActivity(
-                NaviClient.instance.navigateIntent(
-                    //Location(name ?: "Unknown", longitude.toString(), latitude.toString()),
-                    Location("카카오 판교오피스", "127.108640", "37.402111"),
-                    NaviOption(coordType = CoordType.WGS84)
+        button.setOnClickListener {
+            val name = arguments?.getString("name")
+            val latitude = arguments?.getDouble("latitude")
+            val longitude = arguments?.getDouble("longitude")
+
+            // 앱 설치 상태(카카오내비 호출)
+            if (NaviClient.instance.isKakaoNaviInstalled(requireContext())) {
+                startActivity(
+                    NaviClient.instance.navigateIntent(
+                        //Location(name ?: "Unknown", longitude.toString(), latitude.toString()),
+                        Location("카카오 판교오피스", "127.108640", "37.402111"),
+                        NaviOption(coordType = CoordType.WGS84)
+                    )
                 )
-            )
-        } else { // 앱 미설치 상태(스토어 이동)
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(Constants.WEB_NAVI_INSTALL)
-                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            )
+            } else { // 앱 미설치 상태(스토어 이동)
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(Constants.WEB_NAVI_INSTALL)
+                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                )
+            }
         }
     }
 }

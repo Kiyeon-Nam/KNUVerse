@@ -6,11 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".kakaoMapFragment">
 
-
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
+
+    <Button
+        android:id="@+id/find_route_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="길찾기"
+        android:textColor="@android:color/black"
+        android:background="@android:color/holo_blue_light"
+        android:layout_gravity="center" />
 
 </FrameLayout>

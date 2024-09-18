@@ -17,10 +17,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = java.net.URI("https://devrepo.kakao.com/nexus/content/groups/public/") }
+        maven { url = java.net.URI("https://devrepo.kakaomobility.com/repository/kakao-mobility-android-knsdk-public/")}
     }
 }
 
 rootProject.name = "KNUVerse"
 include(":app")
 
- 
+include(":appSDK")
