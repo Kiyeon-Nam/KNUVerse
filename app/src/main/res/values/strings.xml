@@ -2,6 +2,11 @@
     <string name="app_name">KNUV</string>
     <string name="desc_icon">AppIcon</string>
     <string name="tb_login">로그인</string>
+    <string name="tab_restaurant">식당</string>
+    <string name="tab_cafe">카페</string>
+    <string name="tab_hospital">병원</string>
+    <string name="tab_travel">관광</string>
+    <string name="tab_education">교육</string>
     <string-array name="language_array">
         <item>Korean</item>
         <item>English</item>

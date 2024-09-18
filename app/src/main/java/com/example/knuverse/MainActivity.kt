@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.knuverse.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var currentTabPosition: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,19 +26,18 @@ class MainActivity : AppCompatActivity() {
         // 액티비티 화면 출력
         setContentView(binding.root)
 
+
+
         // Spinner에 대한 ArrayAdapter 생성
         val adapter = ArrayAdapter.createFromResource(
             this,
             R.array.language_array,       // 스피너 항목 배열
             R.layout.custom_spinner_item // 커스텀 레이아웃
         )
-
         // 드롭다운을 위한 레이아웃 설정
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         // Spinner에 어댑터 연결
         binding.languageSpinner.adapter = adapter
-
         // Spinner 선택 리스너 설정
         binding.languageSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -58,10 +59,18 @@ class MainActivity : AppCompatActivity() {
         // 액션바의 내용을 툴바에 적용
         setSupportActionBar(binding.toolbar)
 
+
+
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
     }
+
+
 }
