@@ -83,7 +83,7 @@
                     android:layout_marginTop="-2dp"
                     android:layout_marginEnd="-8dp"
                     android:layout_marginBottom="-2dp"
-                    android:alpha="0.5"
+                    android:alpha="0.7"
                     app:layout_constraintBottom_toBottomOf="@+id/card_status"
                     app:layout_constraintEnd_toEndOf="@+id/card_status"
                     app:layout_constraintStart_toStartOf="@+id/card_status"
