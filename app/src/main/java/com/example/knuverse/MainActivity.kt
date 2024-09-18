@@ -60,7 +60,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
 
-
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, RecyclerFragment())
+            .commit()
 
 
 
