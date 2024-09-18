@@ -214,9 +214,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/category_button_04" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </LinearLayout>
+
+        <!-- 목록을 표시하는 리사이클러 뷰 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
     </LinearLayout>

@@ -5,25 +5,25 @@
     </style>
 
     <style name="TextStyle_24">
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:lineSpacingExtra">34dp</item>
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:fontFamily">@font/pretendard</item>
     </style>
     <style name="TextStyle_16">
-        <item name="android:textSize">21sp</item>
-        <item name="android:lineSpacingExtra">24dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">5dp</item>
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:fontFamily">@font/pretendard</item>
     </style>
     <style name="TextStyle_12">
-        <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">16dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:fontFamily">@font/pretendard</item>
     </style>
     <style name="TextStyle_10">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:lineSpacingExtra">14dp</item>
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:fontFamily">@font/pretendard</item>
