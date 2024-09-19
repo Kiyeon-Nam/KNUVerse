@@ -1,8 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.KNUVerse" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#F8F8FA</item>
+    </style>
+
+    <style name="TextStyle_24">
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">34dp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
+    <style name="TextStyle_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
+    <style name="TextStyle_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
+    <style name="TextStyle_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineSpacingExtra">14dp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
     </style>
 
     <style name="Theme.KNUVerse" parent="Base.Theme.KNUVerse" />
