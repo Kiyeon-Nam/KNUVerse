@@ -19,13 +19,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var firebaseAuth: FirebaseAuth
-
+    // c5640 page
     private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result ->
         val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
         Log.d("LOGIN--", task.toString())
         try {
-            // Google 로그인이 성공하면, Firebase로 인증합니다.
+            // Google 로그인이 성공시 Firebase로 인증
             val account = task.getResult(ApiException::class.java)!!
             Log.d("LOGIN--22", account.idToken!!)
             firebaseAuthWithGoogle(account.idToken!!)
@@ -51,14 +51,14 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // GoogleSignInOptions를 구성합니다.
+        // GoogleSignInOptions 구성
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestServerAuthCode(getString(R.string.default_web_client_id))
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-        // GoogleSignInClient를 초기화합니다.
+        // GoogleSignInClient 초기화
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // 구글 로그인 버튼 클릭 이벤트 처리
