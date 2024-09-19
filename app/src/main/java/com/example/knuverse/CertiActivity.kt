@@ -16,16 +16,26 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import androidx.databinding.DataBindingUtil
 import com.example.knuverse.databinding.ActivityCertiBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class CertiActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCertiBinding
     private lateinit var uri: Uri
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 데이터 바인딩을 설정
         binding = DataBindingUtil.setContentView(this, R.layout.activity_certi)
+
+        // Firebase Authentication
+        firebaseAuth = FirebaseAuth.getInstance()
+        val user = firebaseAuth.currentUser
+        if (user != null) {
+            binding.txtUserName.text = "${user.displayName}님"
+        } else {
+            binding.txtUserName.text = "사용자님"
+        }
 
         // 뒤로가기
         binding.btnBack.setOnClickListener {
@@ -34,7 +44,9 @@ class CertiActivity : AppCompatActivity() {
 
         // 로그아웃 버튼
         binding.btnlogout.setOnClickListener {
+            firebaseAuth.signOut()  // Firebase 로그아웃 처리
             Toast.makeText(this, "로그아웃되었습니다", Toast.LENGTH_SHORT).show()
+            binding.txtUserName.text = "사용자님"
         }
 
         // 이미지뷰를 눌렀을 경우 앨범을 호출
