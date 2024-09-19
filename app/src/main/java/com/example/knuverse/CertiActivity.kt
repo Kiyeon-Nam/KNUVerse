@@ -14,8 +14,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
 import java.util.Date
-import com.bumptech.glide.Glide
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import com.example.knuverse.databinding.ActivityCertiBinding
 
@@ -34,8 +32,13 @@ class CertiActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        // 로그아웃 버튼
+        binding.btnlogout.setOnClickListener {
+            Toast.makeText(this, "로그아웃되었습니다", Toast.LENGTH_SHORT).show()
+        }
+
         // 이미지뷰를 눌렀을 경우 앨범을 호출
-        binding.imageArea.setOnClickListener {
+        binding.btnPicker.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             registerForActivityResult.launch(intent)
         }
@@ -51,7 +54,7 @@ class CertiActivity : AppCompatActivity() {
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 uri = result.data?.data!!
                 // 이미지를 ImageView에 표시
-                binding.imageArea.setImageURI(uri)
+                binding.txtFileStatus.text = "파일 선택 완료"
             }
         }
 
@@ -71,7 +74,7 @@ class CertiActivity : AppCompatActivity() {
             Toast.makeText(this, "인증 요청을 보냈습니다", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {
             // 파일 업로드 실패
-            Toast.makeText(this, "이미지 업로드 실패", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "인증 요청을 보냈습니다", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -87,7 +90,6 @@ class CertiActivity : AppCompatActivity() {
 
         mountainsRef.downloadUrl.addOnSuccessListener { uri ->
             // 파일 다운로드 성공
-            Glide.with(this).load(uri).into(binding.imageArea) // 이미지 로드
         }.addOnFailureListener {
             // 파일 다운로드 실패
             Toast.makeText(this, "이미지 다운로드 실패", Toast.LENGTH_SHORT).show()

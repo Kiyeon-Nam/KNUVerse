@@ -20,7 +20,13 @@
 
         <activity
             android:name=".CertiActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -47,14 +53,9 @@
 <!--        </activity>-->
         <!-- LoginActivity를 앱의 진입점으로 설정 -->
 
-        <!-- 성공하면 지울 코드 -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
