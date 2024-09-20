@@ -1,78 +1,82 @@
 package com.example.knuverse
 
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.example.knuverse.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayout
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var currentTabPosition: Int? = null
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         // 바인딩 객체 획득
         binding = ActivityMainBinding.inflate(layoutInflater)
         // 액티비티 화면 출력
         setContentView(binding.root)
 
+        // UI 요소
+        val titleTextView: TextView = findViewById(R.id.titleTextView)
+        val contentTextView: TextView = findViewById(R.id.contentTextView)
+        val startDateTextView: TextView = findViewById(R.id.startDateTextView)
+        val endDateTextView: TextView = findViewById(R.id.endDateTextView)
+        val isPartnershipTextView: TextView = findViewById(R.id.isPartnershipTextView)
+        val imageView: ImageView = findViewById(R.id.imageView3)
 
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-        // Spinner에 대한 ArrayAdapter 생성
-        val adapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.language_array,       // 스피너 항목 배열
-            R.layout.custom_spinner_item // 커스텀 레이아웃
-        )
-        // 드롭다운을 위한 레이아웃 설정
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Spinner에 어댑터 연결
-        binding.languageSpinner.adapter = adapter
-        // Spinner 선택 리스너 설정
-        binding.languageSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                // 선택된 아이템을 토스트 메시지로 표시
-                val selectedItem = parent?.getItemAtPosition(position).toString()
-                Toast.makeText(this@MainActivity, "Selected: $selectedItem", Toast.LENGTH_SHORT).show()
+        // Firestore에서 데이터 가져오기
+        db.collection("Partnerships")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("Firebase", "${document.id} => ${document.data}")
+                    val title = document.getString("title")
+                    val content = document.getString("content")
+                    val startDate = document.getTimestamp("startDate")
+                    val endDate = document.getTimestamp("endDate")
+                    val isPartnership = document.getBoolean("isPartnership")
+                    val imageUrls = document.get("imageUrls") as? List<String>
+
+                    // 텍스트 설정
+                    titleTextView.text = title
+                    contentTextView.text = content
+                    startDateTextView.text = startDate?.let { dateFormat.format(it.toDate()) } ?: "No Start Date"
+                    endDateTextView.text = endDate?.let { dateFormat.format(it.toDate()) } ?: "No End Date"
+
+                    if (isPartnership == true) {
+                        isPartnershipTextView.text = "제휴"
+                    } else {
+                        isPartnershipTextView.text = "홍보"
+                    }
+
+                    // 이미지가 있으면 첫 번째 이미지 로드
+                    if (imageUrls != null && imageUrls.isNotEmpty()) {
+                        loadImageFromUrl(imageUrls[0], imageView)
+                    } else {
+                        Toast.makeText(this, "No images found", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // 선택된 항목이 없을 때 처리할 내용
+            .addOnFailureListener { exception ->
+                Log.w("Firebase", "Error getting documents.", exception)
+                Toast.makeText(this, "Error loading data", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        // 액션바의 내용을 툴바에 적용
-        setSupportActionBar(binding.toolbar)
-
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, RecyclerFragment())
-            .commit()
-
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
     }
 
-
+    // Glide를 사용하여 이미지 로드
+    private fun loadImageFromUrl(url: String, imageView: ImageView) {
+        Glide.with(this)
+            .load(url)
+            .into(imageView)
+    }
 }
