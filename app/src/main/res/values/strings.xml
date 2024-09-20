@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">KNUV</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_web_client_id">487640851520-6pi17ueo0h2fofe4qod6b56g0ts77jgf.apps.googleusercontent.com</string>
+    <string name="desc_icon">AppIcon</string>
+    <string name="tb_login">로그인</string>
+    <string name="tab_restaurant">식당</string>
+    <string name="tab_cafe">카페</string>
+    <string name="tab_hospital">병원</string>
+    <string name="tab_travel">관광</string>
+    <string name="tab_education">교육</string>
+    <string name="card_test_text">🎉YBM 개강맞이 경품 이벤트🎉</string>
+    <string name="card_test_text2">경북대학교 제14대 IT대학 학생회 “KITS\"x 토익 주관사 \"YBM\"📌수강료 90% 장학 지원📌3,650,000원 → 365,000원🔽수강신청 페이지 바로가기🔽https://vo.la/YBMNET2❗이미 지원 받은 학우분은 중복지원 불가합니다. ✅ YBM 토익 과정</string>
+    <string name="status_0">제휴</string>
+    <string name="card_test_date">2024. 09. 15 ~ 2024. 09. 15.</string>
+    <string name="card_test_dday">10일</string>
+    <string-array name="language_array">
+        <item>Korean</item>
+        <item>English</item>
+    </string-array>
 </resources>
