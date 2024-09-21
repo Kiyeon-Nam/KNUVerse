@@ -6,7 +6,7 @@
     android:layout_height="200dp"
     android:layout_margin="24dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="4dp"
+    app:cardElevation="2dp"
     app:cardBackgroundColor="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,21 +31,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
+                    android:src="@drawable/card_background"
                     app:layout_constraintBottom_toBottomOf="@+id/card_thumbnail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/card_thumbnail"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@drawable/card_background" />
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <ImageView
                     android:id="@+id/card_thumbnail"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
+                    android:src="@drawable/card_test"
+                    android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/card_test" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/card_head"
@@ -86,12 +87,12 @@
                     android:layout_marginEnd="-8dp"
                     android:layout_marginBottom="-2dp"
                     android:alpha="0.7"
+                    android:src="@drawable/status_background"
                     app:layout_constraintBottom_toBottomOf="@+id/card_status"
                     app:layout_constraintEnd_toEndOf="@+id/card_status"
                     app:layout_constraintStart_toStartOf="@+id/card_status"
                     app:layout_constraintTop_toTopOf="@+id/card_status"
-                    app:layout_constraintVertical_bias="0.461"
-                    app:srcCompat="@drawable/status_background" />
+                    app:layout_constraintVertical_bias="0.461" />
 
                 <TextView
                     android:id="@+id/card_status"
@@ -122,18 +123,18 @@
                     app:layout_constraintStart_toEndOf="@+id/card_thumbnail" />
 
                 <ImageView
-                    android:id="@+id/date_state_background"
+                    android:id="@+id/date_dday_background"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="-8dp"
                     android:layout_marginTop="-8dp"
                     android:layout_marginEnd="-8dp"
                     android:layout_marginBottom="-8dp"
+                    android:src="@drawable/date_state_0"
                     app:layout_constraintBottom_toBottomOf="@+id/card_dday"
                     app:layout_constraintEnd_toEndOf="@+id/card_dday"
                     app:layout_constraintStart_toStartOf="@+id/card_dday"
-                    app:layout_constraintTop_toTopOf="@+id/card_dday"
-                    app:srcCompat="@drawable/date_state_0" />
+                    app:layout_constraintTop_toTopOf="@+id/card_dday" />
 
                 <TextView
                     android:id="@+id/card_dday"
@@ -166,13 +167,13 @@
             android:text="@string/card_test_text2"
             android:textColor="@color/gray"
             android:textFontWeight="500"
+            app:fontWeight="500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView"
-            app:layout_constraintVertical_bias="0.0"
-            app:fontWeight="500" />
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

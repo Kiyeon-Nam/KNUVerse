@@ -4,29 +4,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.knuverse.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var currentTabPosition: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         // 바인딩 객체 획득
         binding = ActivityMainBinding.inflate(layoutInflater)
         // 액티비티 화면 출력
         setContentView(binding.root)
-
-
 
         // Spinner에 대한 ArrayAdapter 생성
         val adapter = ArrayAdapter.createFromResource(
@@ -48,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 // 선택된 아이템을 토스트 메시지로 표시
                 val selectedItem = parent?.getItemAtPosition(position).toString()
-                Toast.makeText(this@MainActivity, "Selected: $selectedItem", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this@MainActivity, "Selected: $selectedItem", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -59,20 +51,17 @@ class MainActivity : AppCompatActivity() {
         // 액션바의 내용을 툴바에 적용
         setSupportActionBar(binding.toolbar)
 
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, RecyclerFragment())
-            .commit()
-
-
+        // RecyclerFragment를 메인 액티비티에 추가
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, RecyclerFragment())
+                .commit()
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
     }
-
-
 }

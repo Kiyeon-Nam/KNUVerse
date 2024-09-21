@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "647141775009",
+    "project_id": "knuverse-c5640",
+    "storage_bucket": "knuverse-c5640.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647141775009:android:778edf728ceaf3b1b602e0",
+        "android_client_info": {
+          "package_name": "com.example.knuverse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647141775009-3ss4papq6622anoit6s5kob5tmc5jmq2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.knuverse",
+            "certificate_hash": "5ff5e10e6abed117e228e73ae995d6989455399c"
+          }
+        },
+        {
+          "client_id": "647141775009-qle856gb13n68cm98t234i9ilit61g1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO-VlP6-WCYYDELSGz6p7UpSKjJhTjpPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647141775009-qle856gb13n68cm98t234i9ilit61g1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
