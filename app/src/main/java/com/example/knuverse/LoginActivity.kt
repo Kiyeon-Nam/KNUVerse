@@ -39,6 +39,11 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 툴바 설정
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         // Firebase Authentication 인스턴스 초기화
         firebaseAuth = FirebaseAuth.getInstance()
 
