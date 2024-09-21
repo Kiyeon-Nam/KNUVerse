@@ -1,5 +1,6 @@
 package com.example.knuverse
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,17 +24,14 @@ class MyViewHolder(val binding: ItemCardBinding) : RecyclerView.ViewHolder(bindi
 
 class MyAdapter(val datas: List<DocumentData>) : RecyclerView.Adapter<MyViewHolder>() {
 
-    // 항목 개수 판단
     override fun getItemCount(): Int = datas.size
 
-    // 항목 뷰를 가지는 뷰 홀더를 준비
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             ItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-    // 각 항목을 구성
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val binding = holder.binding
         val item = datas[position]
@@ -57,10 +55,18 @@ class MyAdapter(val datas: List<DocumentData>) : RecyclerView.Adapter<MyViewHold
             Toast.makeText(holder.itemView.context, "No images found", Toast.LENGTH_SHORT).show()
         }
 
+        // 클릭 이벤트 처리 - 카드 배경 클릭 시 DetailActivity로 이동
+        binding.cardBackground.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, DetailActivity::class.java).apply {
+                putExtra("DOCUMENT_ID", item.documentId) // Document ID를 전달
+            }
+            context.startActivity(intent)
+        }
+
         Log.d("test", "item root click : $position")
     }
 
-    // Glide를 사용하여 이미지 로드
     private fun loadImageFromUrl(url: String, imageView: ImageView) {
         Glide.with(imageView.context)
             .load(url)
@@ -70,6 +76,7 @@ class MyAdapter(val datas: List<DocumentData>) : RecyclerView.Adapter<MyViewHold
 
 // Firestore 문서 데이터를 저장할 데이터 클래스
 data class DocumentData(
+    val documentId: String,  // Firestore 문서 ID 필드 추가
     val title: String,
     val content: String,
     val startDate: String,
@@ -112,10 +119,12 @@ class RecyclerFragment : Fragment() {
                     val endDate = document.getTimestamp("endDate")?.let { dateFormat.format(it.toDate()) } ?: "종료 날짜 없음"
                     val isPartnership = document.getBoolean("isPartnership") ?: false
                     val imageUrls = document.get("imageUrls") as? List<String> ?: emptyList()
+                    val documentId = document.id  // Firestore 문서 ID
 
                     // DocumentData 객체로 변환하여 리스트에 추가
                     datas.add(
                         DocumentData(
+                            documentId = documentId,  // 문서 ID를 포함
                             title = title,
                             content = content,
                             startDate = startDate,
