@@ -1,15 +1,17 @@
 package com.example.knuverse
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knuverse.databinding.FragmentRecyclerBinding
+import com.example.knuverse.databinding.ItemCardBinding
 
-class MyViewHolder(val binding: FragmentRecyclerBinding) : RecyclerView.ViewHolder(binding.root)
+class MyViewHolder(val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
 class MyAdapter(val datas: MutableList<String>) : RecyclerView.Adapter<MyViewHolder>() {
 
@@ -18,17 +20,17 @@ class MyAdapter(val datas: MutableList<String>) : RecyclerView.Adapter<MyViewHol
 
     // 항목 뷰를 가지는 뷰 홀더를 준비하기 위해 자동 호출
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = FragmentRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(
+            ItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
+
 
     // 각 항목을 구성하기 위해 호출
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val data = datas[position]
-
-        // 데이터 바인딩. 아래 주석은 예시임. 이 프로젝트에는 저런 항목이 없음
-        // TODO("카드 데이터 바인딩")
-        // holder.binding.cardTitle.text = item.title
+        val binding = (holder as MyViewHolder).binding
+        // binding.cardHead.text
+        Log.d("test", "item root click : $position")
     }
 
 }
