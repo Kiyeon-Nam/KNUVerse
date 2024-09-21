@@ -1,5 +1,6 @@
 package com.example.knuverse
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, RecyclerFragment())
                 .commit()
+        }
+
+        // 북마크 진입 버튼 이벤트
+        binding.bookmarkPageButton.setOnClickListener {
+            val intent = Intent(this, BookmarkActivity::class.java)
+            startActivity(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
