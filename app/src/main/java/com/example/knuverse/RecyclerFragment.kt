@@ -1,7 +1,7 @@
 package com.example.knuverse
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,105 +21,112 @@ private val db = FirebaseFirestore.getInstance()
 
 class MyViewHolder(val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
-class MyAdapter(val datas: MutableList<String>) : RecyclerView.Adapter<MyViewHolder>() {
+class MyAdapter(private val datas: List<DocumentData>, private val selectedLanguage: String) : RecyclerView.Adapter<MyViewHolder>() {
 
-
-    // 항목 개수 판단하기 위해 자동 호출
     override fun getItemCount(): Int = datas.size
 
-    // 항목 뷰를 가지는 뷰 홀더를 준비하기 위해 자동 호출
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             ItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-
-    // 각 항목을 구성하기 위해 호출
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val binding = (holder as MyViewHolder).binding
-        // binding.cardHead.text
-        Log.d("test", "item root click : $position")
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val binding = holder.binding
+        val item = datas[position]
 
+        // 텍스트 설정
+        binding.cardHead.text = item.title
+        binding.cardText.text = item.content
+        binding.cardDate.text = "${item.startDate} ~ ${item.endDate}"
 
-        // Firestore에서 데이터 가져오기
-        db.collection("Partnerships")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("Firebase", "${document.id} => ${document.data}")
-                    val title = document.getString("title")
-                    val content = document.getString("content")
-                    val startDate = document.getTimestamp("startDate")
-                    val endDate = document.getTimestamp("endDate")
-                    val isPartnership = document.getBoolean("isPartnership")
-                    val imageUrls = document.get("imageUrls") as? List<String>
+        // 제휴/홍보 상태 설정
+        binding.cardStatus.text = if (item.isPartnership) "제휴" else "홍보"
 
-                    // 텍스트 설정
-                    binding.cardHead.text = title
-                    binding.cardText.text = content
-                    binding.cardDate.text = "${startDate?.let{dateFormat.format(it.toDate())}} ~ ${endDate?.let{dateFormat.format(it.toDate())}}"
+        // 이미지가 있으면 첫 번째 이미지 로드
+        if (item.imageUrls.isNotEmpty()) {
+            loadImageFromUrl(item.imageUrls[0], binding.cardThumbnail)
+        } else {
+            Toast.makeText(holder.itemView.context, "No images found", Toast.LENGTH_SHORT).show()
+        }
 
-                    if (isPartnership == true) {
-                        binding.cardStatus.text = "제휴"
-                    } else {
-                        binding.cardStatus.text = "홍보"
-                    }
-
-                    // 이미지가 있으면 첫 번째 이미지 로드
-                    if (imageUrls != null && imageUrls.isNotEmpty()) {
-                        loadImageFromUrl(imageUrls[0], binding.cardThumbnail)
-                    } else {
-                        Toast.makeText(holder.itemView.context, "No images found", Toast.LENGTH_SHORT).show()
-                    }
-                }
+        // 클릭 이벤트 처리 - 카드 배경 클릭 시 DetailActivity로 이동
+        binding.cardBackground.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, DetailActivity::class.java).apply {
+                putExtra("DOCUMENT_ID", item.documentId) // Document ID를 전달
+                putExtra("SELECTED_LANGUAGE", selectedLanguage) // 선택한 언어 추가
             }
-            .addOnFailureListener { exception ->
-                Log.w("Firebase", "Error getting documents.", exception)
-                Toast.makeText(holder.itemView.context, "Error loading data", Toast.LENGTH_SHORT).show()
-            }
+            context.startActivity(intent)
+        }
     }
 
-    // Glide를 사용하여 이미지 로드
     private fun loadImageFromUrl(url: String, imageView: ImageView) {
         Glide.with(imageView.context)
             .load(url)
             .into(imageView)
     }
-
 }
 
 class RecyclerFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+
+    private var selectedLanguage: String? = null
+
+    companion object {
+        fun newInstance(selectedLanguage: String): RecyclerFragment {
+            val fragment = RecyclerFragment()
+            val args = Bundle()
+            args.putString("selectedLanguage", selectedLanguage)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentRecyclerBinding.inflate(inflater, container, false)
+        selectedLanguage = arguments?.getString("selectedLanguage") ?: "ko"
 
-        // RecyclerView 설정
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-
-        // Firestore에서 데이터 가져오기
-        db.collection("Partnerships")
-            .get()
-            .addOnSuccessListener { result ->
-                val datas = mutableListOf<String>() // 데이터 저장할 리스트
-
-                for (document in result) {
-                    // 제목을 리스트에 추가 (필요한 데이터를 적절히 추가하세요)
-                    val title = document.getString("title") ?: "제목 없음"
-                    datas.add(title)
-                }
-
-                // RecyclerView에 어댑터 설정
-                binding.recyclerView.adapter = MyAdapter(datas)
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Firebase", "Error getting documents.", exception)
-                Toast.makeText(requireContext(), "Error loading data", Toast.LENGTH_SHORT).show()
-            }
+        loadData { datas ->
+            binding.recyclerView.adapter = MyAdapter(datas, selectedLanguage!!)
+        }
 
         return binding.root
+    }
+
+    private fun loadData(callback: (List<DocumentData>) -> Unit) {
+        val collectionName = if (selectedLanguage == "en") "Partnerships_en" else "Partnerships"
+
+        db.collection(collectionName)
+            .get()
+            .addOnSuccessListener { result ->
+                val datas = mutableListOf<DocumentData>()
+
+                result.forEach { document ->
+                    val documentId = document.id
+                    // 문자열로 저장된 startDate와 endDate 가져오기
+                    val startDate = document.getString("startDate") ?: "시작 날짜 없음"
+                    val endDate = document.getString("endDate") ?: "종료 날짜 없음"
+                    val isPartnership = document.getBoolean("isPartnership") ?: false
+                    val imageUrls = (document.get("imageUrls") as? List<*>)?.filterIsInstance<String>() ?: emptyList()
+
+                    datas.add(
+                        DocumentData(
+                            documentId = documentId,
+                            title = document.getString("title") ?: "제목 없음",
+                            content = document.getString("content") ?: "내용 없음",
+                            startDate = startDate,
+                            endDate = endDate,
+                            isPartnership = isPartnership,
+                            imageUrls = imageUrls
+                        )
+                    )
+                }
+
+                callback(datas)
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(requireContext(), "Error loading data", Toast.LENGTH_SHORT).show()
+            }
     }
 }
