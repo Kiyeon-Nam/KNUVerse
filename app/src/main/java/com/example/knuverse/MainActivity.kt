@@ -10,12 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.knuverse.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var currentTabPosition: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         // 액션바의 내용을 툴바에 적용
         setSupportActionBar(binding.toolbar)
 
-
+        // 리스트 출력하는 프래그먼트
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, RecyclerFragment())
             .commit()
