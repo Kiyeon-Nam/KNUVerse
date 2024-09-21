@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="userName"
+            type="String" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RequestActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <!-- 뒤로가기 -->
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="뒤로 가기"
+                android:layout_gravity="start" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <!-- 사용자 이름 텍스트 -->
+                <TextView
+                    android:id="@+id/txtUserName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{userName + '님'}"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:paddingStart="16dp" />
+                <!-- 로그아웃 버튼 -->
+                <Button
+                    android:id="@+id/btnlogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="로그아웃"
+                    android:layout_gravity="end" />
+            </LinearLayout>
+            <!-- 이미지, 제목 날짜 미리보기 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp">
+                <!-- 이미지 영역 -->
+                <ImageView
+                    android:id="@+id/imageArea"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_camera" />
+                <!-- 텍스트 영역 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="10dp">
+                    <!-- 제목 미리보기 -->
+                    <TextView
+                        android:id="@+id/previewText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="제목 미리보기"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:padding="10dp" />
+                    <!-- 날짜 미리보기 -->
+                    <TextView
+                        android:id="@+id/datePreviewText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="시작 날짜 ~ 종료 날짜"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:padding="16dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/contentPreviewText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="내용 미리보기"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:background="@android:color/white"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:elevation="4dp"
+                />
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+                <RadioButton
+                    android:id="@+id/radio_button_spring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="제휴"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:layout_marginEnd="16dp" />
+                <RadioButton
+                    android:id="@+id/radio_button_winter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="홍보"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:layout_marginEnd="16dp" />
+            </RadioGroup>
+            <!-- 제목 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목"
+                android:textSize="20sp"
+                android:textColor="@android:color/black" />
+            <EditText
+                android:id="@+id/titleInputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:hint="제목을 입력하세요"
+                android:padding="10dp"
+                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <!-- 시작 날짜 선택 -->
+                <TextView
+                    android:id="@+id/txtStartDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="시작 날짜"
+                    android:background="@drawable/edit_text_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" ~ "
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+                <!-- 종료 날짜 선택 -->
+                <TextView
+                    android:id="@+id/txtEndDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="종료 날짜"
+                    android:background="@drawable/edit_text_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="10dp" />
+            </LinearLayout>
+            <!-- 내용 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내용"
+                android:textSize="20sp"
+                android:textColor="@android:color/black" />
+            <EditText
+                android:id="@+id/contentInputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:hint="내용을 입력하세요"
+                android:padding="10dp"
+                android:textSize="16sp" />
+            <!-- 파일 선택 및 상태 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp">
+                <Button
+                    android:id="@+id/btnPicker"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:text="파일 선택"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/txtFileStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="선택된 파일 없음"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!-- 주소 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주소"
+                android:textSize="20sp"
+                android:textColor="@android:color/black" />
+            <EditText
+                android:id="@+id/addressInputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:hint="주소를 입력하세요"
+                android:padding="10dp"
+                android:textSize="16sp" />
+            <!-- 구분선 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+            <!-- 업로드 버튼 -->
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                android:text="업로드"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>
