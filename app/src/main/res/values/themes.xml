@@ -10,6 +10,12 @@
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:fontFamily">@font/pretendard</item>
     </style>
+    <style name="TextStyle_20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+    </style>
     <style name="TextStyle_16">
         <item name="android:textSize">16sp</item>
         <item name="android:lineSpacingExtra">10dp</item>
