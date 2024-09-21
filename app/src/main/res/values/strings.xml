@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">knuverse</string>
+    <string name="welcome_user">%1$s님</string>
+    <string name="welcome_default">사용자님</string>
+</resources>
