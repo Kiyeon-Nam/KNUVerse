@@ -109,7 +109,9 @@
                     android:text="게시물을 업로드 하려면 인증이 필요합니다."
                     android:textColor="@color/black"
                     android:textFontWeight="400"
-                    app:fontWeight="400" />
+                    app:fontWeight="400"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
                     android:id="@+id/btnPicker"
