@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_root"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="190dp"
     android:layout_margin="24dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="2dp"
@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="40dp"
                     android:ellipsize="end"
                     android:maxLines="2"
@@ -118,33 +118,6 @@
                     app:layout_constraintBottom_toBottomOf="@+id/card_background"
                     app:layout_constraintStart_toEndOf="@+id/card_thumbnail" />
 
-                <ImageView
-                    android:id="@+id/date_dday_background"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="-8dp"
-                    android:layout_marginTop="-8dp"
-                    android:layout_marginEnd="-8dp"
-                    android:layout_marginBottom="-8dp"
-                    android:src="@drawable/date_state_0"
-                    app:layout_constraintBottom_toBottomOf="@+id/card_dday"
-                    app:layout_constraintEnd_toEndOf="@+id/card_dday"
-                    app:layout_constraintStart_toStartOf="@+id/card_dday"
-                    app:layout_constraintTop_toTopOf="@+id/card_dday" />
-
-                <TextView
-                    android:id="@+id/card_dday"
-                    style="@style/TextStyle_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/white"
-                    android:textFontWeight="400"
-                    app:fontWeight="400"
-                    app:layout_constraintBottom_toBottomOf="@+id/card_background"
-                    app:layout_constraintStart_toEndOf="@+id/card_date" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -158,7 +131,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:ellipsize="end"
-            android:maxLines="4"
+            android:maxLines="3"
             android:textColor="@color/gray"
             android:textFontWeight="500"
             app:fontWeight="500"

@@ -81,7 +81,7 @@
         <!-- 카테고리 선택 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -93,8 +93,8 @@
 
                 <ImageButton
                     android:id="@+id/category_button_00"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/clear"
                     android:scaleType="fitCenter"
@@ -123,8 +123,8 @@
 
                 <ImageButton
                     android:id="@+id/category_button_01"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/clear"
                     android:scaleType="fitCenter"
@@ -153,8 +153,8 @@
 
                 <ImageButton
                     android:id="@+id/category_button_02"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/clear"
                     android:scaleType="fitCenter"
@@ -183,8 +183,8 @@
 
                 <ImageButton
                     android:id="@+id/category_button_03"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/clear"
                     android:scaleType="fitCenter"
@@ -213,8 +213,8 @@
 
                 <ImageButton
                     android:id="@+id/category_button_04"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/clear"
                     android:scaleType="fitCenter"
