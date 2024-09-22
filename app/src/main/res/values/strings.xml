@@ -22,8 +22,8 @@
     <string name="detail_test_ddaystate">시작까지</string>
     <string name="bookmark">북마크</string>
     <string name="map">지도</string>
-    <string name="welcome_user">%1$s님</string>
-    <string name="welcome_default">사용자님</string>
+    <string name="welcome_user">%1$s 님</string>
+    <string name="welcome_default">사용자 님</string>
     <string name="previewText">제목 미리보기</string>
     <string name="previewDateText">시작 날짜 ~ 종료 날짜</string>
     <string name="contextPreviewText">내용 미리보기</string>

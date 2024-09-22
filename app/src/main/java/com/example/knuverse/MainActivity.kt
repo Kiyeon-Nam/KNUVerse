@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.knuverse.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var firebaseAuth: FirebaseAuth
     private var selectedLanguage: String = "ko" // 기본 언어 설정 (한국어)
     private var selectedCategory: String? = null // 선택된 카테고리
 
@@ -20,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        firebaseAuth = FirebaseAuth.getInstance()
+        updateLoginButtonText()
 
         // Spinner 설정
         val adapter = ArrayAdapter.createFromResource(
@@ -55,7 +60,11 @@ class MainActivity : AppCompatActivity() {
 
         // 'tbButton' 클릭 이벤트 - RequestActivity로 이동
         binding.tbButton.setOnClickListener {
-            startActivity(Intent(this, RequestActivity::class.java))
+            if (firebaseAuth.currentUser == null) {
+                // 로그인 화면으로 이동
+                startActivity(Intent(this, LoginActivity::class.java))
+            } else {
+            }
         }
 
         // 북마크 진입 버튼 클릭 이벤트 - BookmarkActivity로 이동
@@ -125,5 +134,14 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, RecyclerFragment.newInstance(selectedLanguage, selectedCategory))
             .commit()
+    }
+
+    private fun updateLoginButtonText() {
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            binding.tbButton.text = getString(R.string.tb_login)
+        } else {
+            binding.tbButton.text = getString(R.string.welcome_user, currentUser.displayName)
+        }
     }
 }

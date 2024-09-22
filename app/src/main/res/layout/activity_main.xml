@@ -34,41 +34,47 @@
             app:contentInsetStart="0dp"
             app:layout_constraintStart_toStartOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/logo"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginVertical="20dp"
-                    android:src="@drawable/logo_mini" />
+                    android:layout_marginStart="24dp"
+                    android:src="@drawable/logo_mini"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
                     android:id="@+id/languageSpinner"
                     android:layout_width="140dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/spinner_background" />
+                    android:background="@drawable/spinner_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/tb_button"
                     style="@style/TextStyle_12"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginEnd="24dp"
                     android:background="@color/clear"
                     android:gravity="center_vertical|end"
                     android:padding="1dp"
                     android:text="@string/tb_login"
                     android:textColor="@color/gray"
                     android:textFontWeight="400"
-                    app:fontWeight="400" />
-            </LinearLayout>
+                    app:fontWeight="400"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
 

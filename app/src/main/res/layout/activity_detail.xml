@@ -40,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/card_test_text"
                 android:textFontWeight="600"
                 app:fontWeight="600" />
 
@@ -55,7 +54,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/card_test_date"
                     android:textColor="@color/gray"
                     android:textFontWeight="400"
                     app:fontWeight="400"
@@ -96,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/card_test_dday"
                     android:textColor="@color/white"
                     android:textFontWeight="400"
                     app:fontWeight="400"
@@ -178,7 +175,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="40dp"
-                android:text="@string/card_test_text2"
                 android:textFontWeight="500"
                 app:fontWeight="500" />
 
