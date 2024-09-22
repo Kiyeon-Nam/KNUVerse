@@ -100,7 +100,7 @@ class CertiActivity : AppCompatActivity() {
             // 파일 다운로드 성공
         }.addOnFailureListener {
             // 파일 다운로드 실패
-            Toast.makeText(this, "이미지 다운로드 실패", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(this, "이미지 다운로드 실패", Toast.LENGTH_SHORT).show()
         }
     }
 

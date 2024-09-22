@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +46,7 @@ class MyAdapter(private val datas: List<DocumentData>, private val selectedLangu
         if (item.imageUrls.isNotEmpty()) {
             loadImageFromUrl(item.imageUrls[0], binding.cardThumbnail)
         } else {
-            Toast.makeText(holder.itemView.context, "No images found", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(holder.itemView.context, "No images found", Toast.LENGTH_SHORT).show()
         }
 
         // 클릭 이벤트 처리 - 카드 클릭 시 DetailActivity로 이동
@@ -138,7 +137,7 @@ class RecyclerFragment : Fragment() {
                 callback(datas)
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(requireContext(), "Error loading data", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(requireContext(), "Error loading data", Toast.LENGTH_SHORT).show()
             }
     }
 }

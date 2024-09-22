@@ -1,8 +1,10 @@
 package com.example.knuverse
 
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,10 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.knuverse.databinding.ActivityDetailBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import android.util.Log
-import android.widget.Toast
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 private val db = FirebaseFirestore.getInstance()
 
@@ -97,7 +95,7 @@ class DetailActivity : AppCompatActivity() {
                     if (imageUrls.isNotEmpty()) {
                         setupRecyclerView(imageUrls)
                     } else {
-                        Toast.makeText(this, "이미지가 없습니다.", Toast.LENGTH_SHORT).show()
+                        // Toast.makeText(this, "이미지가 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(this, "문서가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()

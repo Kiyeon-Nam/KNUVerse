@@ -198,7 +198,7 @@ class RequestActivity : AppCompatActivity() {
         db.collection("Partnerships")
             .add(koreanData.toMap())
             .addOnSuccessListener {
-                Toast.makeText(this@RequestActivity, "한국어 데이터가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this@RequestActivity, "한국어 데이터가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@RequestActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish() // 현재 Activity 종료
@@ -218,7 +218,7 @@ class RequestActivity : AppCompatActivity() {
         db.collection("Partnerships_en")
             .add(englishData.toMap())
             .addOnSuccessListener {
-                Toast.makeText(this@RequestActivity, "영어 데이터가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this@RequestActivity, "영어 데이터가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@RequestActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish() // 현재 Activity 종료
