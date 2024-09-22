@@ -60,7 +60,12 @@ ex)
 
 |액티비티|화면|설명|
 |:----:|:----------:|:-----:|
-|Main(Korean)|![image](https://github.com/user-attachments/assets/19536e69-3c75-4d74-aa6a-472a20f76d61)|설명|
+|Main(Korean)|![image](https://github.com/user-attachments/assets/19536e69-3c75-4d74-aa6a-472a20f76d61)|Main 화면은 제휴 정보 목록을 나타낸다.
+상단의 스피너에서 "Korean" 또는 "English"를 선택할 수 있으며, 선택한 언어에 맞춰 제휴 정보를 제공한다.
+상단 우측의 로그인 버튼을 클릭하면 Login 화면으로 전환된다.
+카테고리 바에서 특정 카테고리를 선택하면 해당 카테고리의 제휴 정보만 표시된다.
+같은 카테고리를 다시 누르면 선택이 취소된다.
+제휴 정보 목록에서 특정 제휴 정보 박스를 클릭하면 해당 제휴 정보의 상세 내용을 볼 수 있는 Detail 페이지로 전환된다.|
 |Main(English)|![image](https://github.com/user-attachments/assets/3268e311-fa17-42ad-b91e-86cb96c41744)|- 영어로 표시되는 메인 화면.|
 |Detail(Korean)|![image](https://github.com/user-attachments/assets/c5e978b1-7f5b-4e51-931e-b30ebdbd079d)||
 |Detail(English)|![image](https://github.com/user-attachments/assets/cb798126-5636-4415-baf0-450d36ead79c)|- 영어로 표시되는 상세 화면.|
