@@ -7,13 +7,13 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.knuverse.databinding.ActivityCertiBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
 import java.util.Date
-import androidx.databinding.DataBindingUtil
-import com.example.knuverse.databinding.ActivityCertiBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class CertiActivity : AppCompatActivity() {
 
@@ -25,6 +25,11 @@ class CertiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_certi)
 
+        // 툴바 설정
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         // Firebase Authentication
         firebaseAuth = FirebaseAuth.getInstance()
         val user = firebaseAuth.currentUser
@@ -32,11 +37,6 @@ class CertiActivity : AppCompatActivity() {
             binding.txtUserName.text = getString(R.string.welcome_user, user.displayName)
         } else {
             binding.txtUserName.text = getString(R.string.welcome_default)
-        }
-
-        // 뒤로가기
-        binding.btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
         }
 
         // 로그아웃 버튼

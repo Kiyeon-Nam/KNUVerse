@@ -23,4 +23,8 @@
     <string name="map">지도</string>
     <string name="welcome_user">%1$s님</string>
     <string name="welcome_default">사용자님</string>
+    <string name="previewText">제목 미리보기</string>
+    <string name="previewDateText">시작 날짜 ~ 종료 날짜</string>
+    <string name="contextPreviewText">내용 미리보기</string>
+    <string name="status_1">홍보</string>
 </resources>

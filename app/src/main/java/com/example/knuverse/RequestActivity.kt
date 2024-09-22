@@ -40,6 +40,14 @@ class RequestActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_request)
         Log.d("RequestActivity", "setContentView 완료")
 
+
+
+        // 툴바 설정
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+
         setupDatePickers()
         Log.d("RequestActivity", "setupDatePickers 호출 완료")
         setupContentPreviewUpdater()
@@ -73,12 +81,6 @@ class RequestActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
-
-        // 뒤로가기
-        binding.btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-            Log.d("RequestActivity", "뒤로 가기 버튼 클릭")
-        }
 
         // 로그아웃 버튼
         binding.btnlogout.setOnClickListener {

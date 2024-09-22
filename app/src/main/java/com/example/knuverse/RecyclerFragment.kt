@@ -56,7 +56,7 @@ class MyAdapter(val datas: List<DocumentData>) : RecyclerView.Adapter<MyViewHold
         }
 
         // 클릭 이벤트 처리 - 카드 배경 클릭 시 DetailActivity로 이동
-        binding.cardBackground.setOnClickListener {
+        binding.cardView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DetailActivity::class.java).apply {
                 putExtra("DOCUMENT_ID", item.documentId) // Document ID를 전달
