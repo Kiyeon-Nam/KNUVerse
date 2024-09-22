@@ -14,6 +14,8 @@ import com.example.knuverse.databinding.ActivityDetailBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
 import android.widget.Toast
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 private val db = FirebaseFirestore.getInstance()
 
@@ -32,6 +34,8 @@ class HorizontalImageAdapter(private val imageUrls: List<String>) :
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageUrl = imageUrls[position]
+      
+        // Glide를 사용하여 이미지를 로드
         Glide.with(holder.imageView.context)
             .load(imageUrl)
             .into(holder.imageView)

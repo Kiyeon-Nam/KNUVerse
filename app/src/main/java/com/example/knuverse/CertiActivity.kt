@@ -11,9 +11,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
 import java.util.Date
-import androidx.databinding.DataBindingUtil
-import com.example.knuverse.databinding.ActivityCertiBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class CertiActivity : AppCompatActivity() {
 
@@ -25,6 +22,11 @@ class CertiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_certi)
 
+        // 툴바 설정
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         // Firebase Authentication
         firebaseAuth = FirebaseAuth.getInstance()
         val user = firebaseAuth.currentUser
@@ -33,12 +35,7 @@ class CertiActivity : AppCompatActivity() {
         } else {
             binding.txtUserName.text = getString(R.string.welcome_default)
         }
-
-        // 뒤로가기
-        binding.btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-
+        
         // 로그아웃 버튼
         binding.btnlogout.setOnClickListener {
             firebaseAuth.signOut()  // Firebase 로그아웃 처리

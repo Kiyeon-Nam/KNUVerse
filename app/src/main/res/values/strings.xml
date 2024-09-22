@@ -10,6 +10,7 @@
     <string name="card_test_text">🎉YBM 개강맞이 경품 이벤트🎉</string>
     <string name="card_test_text2">경북대학교 제14대 IT대학 학생회 “KITS\"x 토익 주관사 \"YBM\"📌수강료 90% 장학 지원📌3,650,000원 → 365,000원🔽수강신청 페이지 바로가기🔽https://vo.la/YBMNET2❗이미 지원 받은 학우분은 중복지원 불가합니다. ✅ YBM 토익 과정</string>
     <string name="status_0">제휴</string>
+    <string name="status_1">홍보</string>
     <string name="card_test_date">2024. 09. 15 ~ 2024. 09. 15.</string>
     <string name="card_test_dday">10일</string>
     <string-array name="language_array">
@@ -23,4 +24,7 @@
     <string name="map">지도</string>
     <string name="welcome_user">%1$s님</string>
     <string name="welcome_default">사용자님</string>
+    <string name="previewText">제목 미리보기</string>
+    <string name="previewDateText">시작 날짜 ~ 종료 날짜</string>
+    <string name="contextPreviewText">내용 미리보기</string>
 </resources>

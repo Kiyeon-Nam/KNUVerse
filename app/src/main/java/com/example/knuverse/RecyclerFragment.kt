@@ -68,6 +68,17 @@ class MyAdapter(private val datas: List<DocumentData>, private val selectedLangu
     }
 }
 
+// Firestore 문서 데이터를 저장할 데이터 클래스
+data class DocumentData(
+    val documentId: String,  // Firestore 문서 ID 필드 추가
+    val title: String,
+    val content: String,
+    val startDate: String,
+    val endDate: String,
+    val isPartnership: Boolean,
+    val imageUrls: List<String>
+)
+
 class RecyclerFragment : Fragment() {
 
     private var selectedLanguage: String? = null
@@ -123,6 +134,7 @@ class RecyclerFragment : Fragment() {
                     )
                 }
 
+                // 콜백을 통해 데이터 전달
                 callback(datas)
             }
             .addOnFailureListener { exception ->

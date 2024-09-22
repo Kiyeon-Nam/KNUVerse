@@ -55,6 +55,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.tbButton.setOnClickListener {
             startActivity(Intent(this, RequestActivity::class.java))
+            
+        // 북마크 진입 버튼 이벤트
+        binding.bookmarkPageButton.setOnClickListener {
+            val intent = Intent(this, BookmarkActivity::class.java)
+            startActivity(intent)
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 }
