@@ -17,8 +17,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 private val db = FirebaseFirestore.getInstance()
 
+// ViewHolder 정의
 class MyViewHolder(val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
+// Adapter 정의
 class MyAdapter(private val datas: List<DocumentData>, private val selectedLanguage: String) : RecyclerView.Adapter<MyViewHolder>() {
 
     override fun getItemCount(): Int = datas.size
@@ -48,17 +50,18 @@ class MyAdapter(private val datas: List<DocumentData>, private val selectedLangu
             Toast.makeText(holder.itemView.context, "No images found", Toast.LENGTH_SHORT).show()
         }
 
-        // 클릭 이벤트 처리 - 카드 배경 클릭 시 DetailActivity로 이동
-        binding.cardBackground.setOnClickListener {
+        // 클릭 이벤트 처리 - 카드 클릭 시 DetailActivity로 이동
+        binding.itemRoot.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DetailActivity::class.java).apply {
-                putExtra("DOCUMENT_ID", item.documentId) // Document ID를 전달
-                putExtra("SELECTED_LANGUAGE", selectedLanguage) // 선택한 언어 추가
+                putExtra("DOCUMENT_ID", item.documentId) // Document ID 전달
+                putExtra("SELECTED_LANGUAGE", selectedLanguage) // 선택한 언어 전달
             }
             context.startActivity(intent)
         }
     }
 
+    // 이미지를 URL에서 불러오는 함수
     private fun loadImageFromUrl(url: String, imageView: ImageView) {
         Glide.with(imageView.context)
             .load(url)
@@ -66,15 +69,18 @@ class MyAdapter(private val datas: List<DocumentData>, private val selectedLangu
     }
 }
 
+// Fragment 정의
 class RecyclerFragment : Fragment() {
 
     private var selectedLanguage: String? = null
+    private var selectedCategory: String? = null
 
     companion object {
-        fun newInstance(selectedLanguage: String): RecyclerFragment {
+        fun newInstance(selectedLanguage: String, selectedCategory: String?): RecyclerFragment {
             val fragment = RecyclerFragment()
             val args = Bundle()
             args.putString("selectedLanguage", selectedLanguage)
+            args.putString("selectedCategory", selectedCategory)
             fragment.arguments = args
             return fragment
         }
@@ -83,6 +89,7 @@ class RecyclerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentRecyclerBinding.inflate(inflater, container, false)
         selectedLanguage = arguments?.getString("selectedLanguage") ?: "ko"
+        selectedCategory = arguments?.getString("selectedCategory")
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         loadData { datas ->
@@ -92,17 +99,23 @@ class RecyclerFragment : Fragment() {
         return binding.root
     }
 
+    // Firestore에서 데이터를 불러오는 함수
     private fun loadData(callback: (List<DocumentData>) -> Unit) {
         val collectionName = if (selectedLanguage == "en") "Partnerships_en" else "Partnerships"
 
-        db.collection(collectionName)
-            .get()
+        // 선택된 카테고리가 있으면 해당 카테고리의 데이터만 가져옴
+        val query = if (selectedCategory != null) {
+            db.collection(collectionName).whereEqualTo("category", selectedCategory)
+        } else {
+            db.collection(collectionName)
+        }
+
+        query.get()
             .addOnSuccessListener { result ->
                 val datas = mutableListOf<DocumentData>()
 
                 result.forEach { document ->
                     val documentId = document.id
-                    // 문자열로 저장된 startDate와 endDate 가져오기
                     val startDate = document.getString("startDate") ?: "시작 날짜 없음"
                     val endDate = document.getString("endDate") ?: "종료 날짜 없음"
                     val isPartnership = document.getBoolean("isPartnership") ?: false

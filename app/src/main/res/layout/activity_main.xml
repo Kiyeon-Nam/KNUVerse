@@ -97,6 +97,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <TextView
+                    android:id="@+id/category_text_00"
                     style="@style/TextStyle_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,6 +127,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <TextView
+                    android:id="@+id/category_text_01"
                     style="@style/TextStyle_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,6 +157,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <TextView
+                    android:id="@+id/category_text_02"
                     style="@style/TextStyle_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,6 +187,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <TextView
+                    android:id="@+id/category_text_03"
                     style="@style/TextStyle_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -213,6 +217,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <TextView
+                    android:id="@+id/category_text_04"
                     style="@style/TextStyle_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
