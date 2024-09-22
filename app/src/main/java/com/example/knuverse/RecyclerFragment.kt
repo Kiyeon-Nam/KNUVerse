@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide
 import com.example.knuverse.databinding.FragmentRecyclerBinding
 import com.example.knuverse.databinding.ItemCardBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 private val db = FirebaseFirestore.getInstance()
 
@@ -67,17 +65,6 @@ class MyAdapter(private val datas: List<DocumentData>, private val selectedLangu
             .into(imageView)
     }
 }
-
-// Firestore 문서 데이터를 저장할 데이터 클래스
-data class DocumentData(
-    val documentId: String,  // Firestore 문서 ID 필드 추가
-    val title: String,
-    val content: String,
-    val startDate: String,
-    val endDate: String,
-    val isPartnership: Boolean,
-    val imageUrls: List<String>
-)
 
 class RecyclerFragment : Fragment() {
 
