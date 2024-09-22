@@ -480,7 +480,7 @@
                         style="@style/TextStyle_16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="인증 요청"
+                        android:text="업로드"
                         android:textColor="@color/white"
                         android:textFontWeight="400"
                         app:fontWeight="400"
