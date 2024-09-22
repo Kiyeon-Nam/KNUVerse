@@ -226,34 +226,6 @@
                                     app:layout_constraintBottom_toBottomOf="@+id/card_background"
                                     app:layout_constraintStart_toEndOf="@+id/imageArea" />
 
-                                <ImageView
-                                    android:id="@+id/date_dday_background"
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:layout_marginStart="-8dp"
-                                    android:layout_marginTop="-8dp"
-                                    android:layout_marginEnd="-8dp"
-                                    android:layout_marginBottom="-8dp"
-                                    android:src="@drawable/date_state_0"
-                                    app:layout_constraintBottom_toBottomOf="@+id/card_dday"
-                                    app:layout_constraintEnd_toEndOf="@+id/card_dday"
-                                    app:layout_constraintStart_toStartOf="@+id/card_dday"
-                                    app:layout_constraintTop_toTopOf="@+id/card_dday" />
-
-                                <TextView
-                                    android:id="@+id/card_dday"
-                                    style="@style/TextStyle_10"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="16dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:text="@string/card_test_dday"
-                                    android:textColor="@color/white"
-                                    android:textFontWeight="400"
-                                    app:fontWeight="400"
-                                    app:layout_constraintBottom_toBottomOf="@+id/card_background"
-                                    app:layout_constraintStart_toEndOf="@+id/datePreviewText" />
-
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
 
