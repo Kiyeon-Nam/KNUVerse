@@ -58,7 +58,7 @@ Youtube 링크: https://youtu.be/ILRbnD1UFZo
 |Detail(English)|![image](https://github.com/user-attachments/assets/cb798126-5636-4415-baf0-450d36ead79c)|Detail(English) 화면은 영어로 상세 제휴 정보를 나타낸다.<br> 상세 정보로는 제목, 기간, 전체 사진, 전체 내용이 있다<br> 사진 부분은 좌우로 스크롤할 수 있다.<br> 상단 좌측 버튼을 누르면 Main(English) 화면로 전환된다.|
 |Bookmark|![image](https://github.com/user-attachments/assets/289d2e4a-93cb-4e09-bfac-e8f40c996b00)|Bookmark 화면은 사용자가 북마크 표시한 제휴 정보 목록이 나타난다.<br> 실제 북마크 기능은 구현하지 못 했다.|
 |Login|![image](https://github.com/user-attachments/assets/34bb6249-2ced-4042-897b-53f1cfd84434)|Login 화면에서 구글 로그인을 할 수 있다.|
-|Certi|![image](https://github.com/user-attachments/assets/0e1b9429-2f65-4999-86db-5ee115bdfe4a)|프로필 화면(1): 로그아웃 기능<br> 파일 업로드 및 DB 전송 기능: 사용자는 사업자등록증 등 자신의 신분을 증명할 자료를 업로드한다.|
+|Certi|![image](https://github.com/user-attachments/assets/5baf756a-0395-4992-b543-2b6f05c47dee)|프로필 화면(1): 로그아웃 기능<br> 파일 업로드 및 DB 전송 기능: 사용자는 사업자등록증 등 자신의 신분을 증명할 자료를 업로드한다.|
 |Request|![image](https://github.com/user-attachments/assets/a22b2509-8c23-42db-b3c0-764e03aa8a55)|프로필 화면(2): (1)에서 인증된 사용자를 대상으로 하는 페이지로, 게시물을 업로드할 수 있다.|
 
 
