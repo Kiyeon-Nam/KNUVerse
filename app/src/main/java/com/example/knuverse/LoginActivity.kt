@@ -85,8 +85,12 @@ class LoginActivity : AppCompatActivity() {
                     // 로그인 성공
                     val user = firebaseAuth.currentUser
                     Toast.makeText(this, "환영합니다, ${user?.displayName}!", Toast.LENGTH_SHORT).show()
-                    // 여기서 로그인 후 화면 전환 등의 작업을 수행할 수 있습니다.
-                    startActivity(Intent(this, MainActivity::class.java))
+
+                    // 로그인 후 인증창 이동
+                    // startActivity(Intent(this, CertiActivity::class.java))
+                    // 로그인 후 신청창 이동
+                    startActivity(Intent(this, RequestActivity::class.java))
+
                     finish()
                 } else {
                     // 로그인 실패
