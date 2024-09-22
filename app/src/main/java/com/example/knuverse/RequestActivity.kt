@@ -17,6 +17,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -67,6 +71,7 @@ class RequestActivity : AppCompatActivity() {
         }
 
         binding.userName = userName
+
         Log.d("RequestActivity", "사용자 이름 설정 완료: $userName")
 
         // 제목을 textview에 반영
@@ -85,6 +90,7 @@ class RequestActivity : AppCompatActivity() {
         // 로그아웃 버튼
         binding.btnlogout.setOnClickListener {
             firebaseAuth.signOut()  // Firebase 로그아웃 처리
+            
             Toast.makeText(this, "로그아웃되었습니다", Toast.LENGTH_SHORT).show()
             binding.txtUserName.text = "사용자님"
         }
@@ -95,59 +101,26 @@ class RequestActivity : AppCompatActivity() {
             registerForActivityResult.launch(intent)
         }
 
-        // 등록하기 버튼을 눌렀을 경우
+        binding.btnStartDate.setOnClickListener {
+            showDatePickerDialog(true)
+        }
+
+        binding.btnEndDate.setOnClickListener {
+            showDatePickerDialog(false)
+        }
+
         binding.btnRegister.setOnClickListener {
-            imageUpload(uri)
-        }
-    }
+            val title = binding.titleInputField.text.toString()
+            val content = binding.contentInputField.text.toString()
+            val isPartnership = binding.radioButtonSpring.isChecked // Ensure this switch exists in your layout
 
-    private fun setupDatePickers() {
-        val calendar = Calendar.getInstance()
-
-        // 시작 날짜 선택 리스너
-        val startDateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            startDate = formatDate(year, month, dayOfMonth)
-            updateDatePreview()  // 미리보기 업데이트
-        }
-
-        // 종료 날짜 선택 리스너
-        val endDateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            endDate = formatDate(year, month, dayOfMonth)
-            updateDatePreview()  // 미리보기 업데이트
-        }
-
-        // 시작 날짜 클릭 시 DatePickerDialog 표시
-        binding.txtStartDate.setOnClickListener {
-            DatePickerDialog(
-                this, startDateListener,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
-
-        // 종료 날짜 클릭 시 DatePickerDialog 표시
-        binding.txtEndDate.setOnClickListener {
-            DatePickerDialog(
-                this, endDateListener,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
-    }
-
-    // 날짜 포맷팅 함수
-    private fun formatDate(year: Int, month: Int, day: Int): String {
-        return "$year.${month + 1}.$day"
-    }
-
-    // 날짜 미리보기 업데이트 함수
-    private fun updateDatePreview() {
-        binding.datePreviewText.text = if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
-            "$startDate ~ $endDate"
-        } else {
-            "날짜를 선택해주세요."
+            if (title.isNotEmpty() && content.isNotEmpty() && ::uri.isInitialized) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    uploadData(title, content, isPartnership, uri)
+                }
+            } else {
+                Toast.makeText(this, "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -188,86 +161,140 @@ class RequestActivity : AppCompatActivity() {
             }
         }
 
+    private fun showDatePickerDialog(isStartDate: Boolean) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-    // 파일을 Firebase Storage에 업로드
-    private fun imageUpload(uri: Uri) {
-        // storage 인스턴스 생성
-        val storage = Firebase.storage
-        // storage 참조
-        val storageRef = storage.getReference("image")
-        // storage에 저장할 파일명 선언
-        val fileName = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-        val mountainsRef = storageRef.child("${fileName}.png")
+        this.let { context ->
+            DatePickerDialog(context, { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = "$selectedYear.${selectedMonth + 1}.$selectedDay"
+                if (isStartDate) {
+                    startDate = selectedDate
+                    binding.txtStartDate.text = selectedDate // 시작일 텍스트 설정
+                    binding.datePreviewText.text = "$startDate ~ $endDate" // 프리뷰 텍스트 업데이트
 
-        val uploadTask = mountainsRef.putFile(uri)
-        uploadTask.addOnSuccessListener { taskSnapshot ->
-            // 파일 업로드 성공
-            Toast.makeText(this, "업로드되었습니다", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            // 파일 업로드 실패
-            Toast.makeText(this, "업로드되었습니다", Toast.LENGTH_SHORT).show()
+                    // 종료일이 설정되어 있을 경우 검증
+                    if (endDate.isNotEmpty() && !isValidDateRange(startDate, endDate)) {
+                        Toast.makeText(this, "시작일이 종료일보다 늦습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    endDate = selectedDate
+                    binding.txtEndDate.text = selectedDate // 종료일 텍스트 설정
+                    binding.datePreviewText.text = "$startDate ~ $endDate" // 프리뷰 텍스트 업데이트
+
+                    // 시작일이 설정되어 있을 경우 검증
+                    if (startDate.isNotEmpty() && !isValidDateRange(startDate, endDate)) {
+                        Toast.makeText(this, "시작일이 종료일보다 늦습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }, year, month, day).show() // DatePickerDialog를 바로 보여줌
         }
     }
 
-    // Firebase Storage에서 이미지를 다운로드하여 Glide로 ImageView에 표시
-    private fun imageDownload() {
-        // storage 인스턴스 생성
-        val storage = Firebase.storage
-        // storage 참조
-        val storageRef = storage.getReference("image")
-        // storage에서 가져올 파일명 선언
-        val fileName = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-        val mountainsRef = storageRef.child("${fileName}.png")
-
-        mountainsRef.downloadUrl.addOnSuccessListener { uri ->
-            // 파일 다운로드 성공
-        }.addOnFailureListener {
-            // 파일 다운로드 실패
-            Toast.makeText(this, "이미지 다운로드 실패", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun imageDelete() { // 이미지 삭제
-        // storage 인스턴스 생성
-        val storage = Firebase.storage
-        // storage 참조
-        val storageRef = storage.getReference("image")
-        // storage에서 삭제 할 파일명
-        val fileName = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-        val mountainsRef = storageRef.child("${fileName}.png")
-
-        val deleteTask = mountainsRef.delete()
-        deleteTask.addOnCompleteListener {
-            // 파일 삭제 성공
-        }.addOnFailureListener {
-            // 파일 삭제 실패
-        }
-    }
-
-    private fun uploadData(inputText: String, uri: Uri) {
+    private suspend fun uploadData(title: String, content: String, isPartnership: Boolean, uri: Uri) {
         val storage = Firebase.storage
         val storageRef = storage.reference.child("images/${UUID.randomUUID()}.png")
         val uploadTask = storageRef.putFile(uri)
 
-        uploadTask.addOnSuccessListener { taskSnapshot ->
-            storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                val data = hashMapOf(
-                    "text" to inputText,
-                    "imageUrl" to downloadUri.toString(),
-                    "timestamp" to SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-                )
+        uploadTask.await() // Upload task가 완료될 때까지 대기
+        val downloadUri = storageRef.downloadUrl.await() // 다운로드 URL을 대기
 
-                db.collection("uploads")
-                    .add(data)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "모든 데이터가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Firestore에 데이터 업로드 실패", Toast.LENGTH_SHORT).show()
-                    }
-            }
-        }.addOnFailureListener {
-            Toast.makeText(this, "이미지 업로드 실패", Toast.LENGTH_SHORT).show()
+        val translator = PapagoTranslator()
+        var translatedTitle: String
+        var translatedContent: String
+
+        try {
+            translatedTitle = translator.translateText("auto", "en", title) ?: title
+        } catch (e: Exception) {
+            Log.e("TranslationError", "Title translation failed", e)
+            translatedTitle = title
         }
+
+        try {
+            translatedContent = translator.translateText("auto", "en", content) ?: content
+        } catch (e: Exception) {
+            Log.e("TranslationError", "Content translation failed", e)
+            translatedContent = content
+        }
+
+        // 날짜 검증
+        if (!isValidDateRange(startDate, endDate)) {
+            Toast.makeText(this, "시작일이 종료일보다 늦거나 같을 수 없습니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val temp = UUID.randomUUID().toString()
+
+        // 한국어 데이터 저장
+        val koreanData = DocumentData(
+            documentId = temp,
+            title = title,
+            content = content,
+            startDate = startDate,
+            endDate = endDate,
+            isPartnership = isPartnership,
+            imageUrls = listOf(downloadUri.toString())
+        )
+
+        db.collection("Partnerships")
+            .add(koreanData.toMap())
+            .addOnSuccessListener {
+                Toast.makeText(this@RequestActivity, "한국어 데이터가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@RequestActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish() // 현재 Activity 종료
+            }
+
+        // 영어 데이터 저장
+        val englishData = DocumentData(
+            documentId = temp,
+            title = translatedTitle,
+            content = translatedContent,
+            startDate = startDate,
+            endDate = endDate,
+            isPartnership = isPartnership,
+            imageUrls = listOf(downloadUri.toString())
+        )
+
+        db.collection("Partnerships_en")
+            .add(englishData.toMap())
+            .addOnSuccessListener {
+                Toast.makeText(this@RequestActivity, "영어 데이터가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@RequestActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish() // 현재 Activity 종료
+            }
+    }
+
+    private fun isValidDateRange(startDate: String, endDate: String): Boolean {
+        val startParts = startDate.split(".").map { it.toInt() }
+        val endParts = endDate.split(".").map { it.toInt() }
+
+        // 날짜 비교
+        return if (startParts.size == 3 && endParts.size == 3) {
+            val startCal = Calendar.getInstance().apply {
+                set(startParts[0], startParts[1] - 1, startParts[2])
+            }
+            val endCal = Calendar.getInstance().apply {
+                set(endParts[0], endParts[1] - 1, endParts[2])
+            }
+            startCal <= endCal
+        } else {
+            false
+        }
+    }
+
+    private fun DocumentData.toMap(): Map<String, Any> {
+        return mapOf(
+            "documentId" to documentId,
+            "title" to title,
+            "content" to content,
+            "startDate" to startDate,
+            "endDate" to endDate,
+            "isPartnership" to isPartnership,
+            "imageUrls" to imageUrls
+        )
     }
 }

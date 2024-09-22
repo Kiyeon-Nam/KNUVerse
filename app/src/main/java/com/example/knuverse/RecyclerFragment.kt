@@ -2,7 +2,6 @@ package com.example.knuverse
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ private val db = FirebaseFirestore.getInstance()
 
 class MyViewHolder(val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
-class MyAdapter(val datas: List<DocumentData>) : RecyclerView.Adapter<MyViewHolder>() {
+class MyAdapter(private val datas: List<DocumentData>, private val selectedLanguage: String) : RecyclerView.Adapter<MyViewHolder>() {
 
     override fun getItemCount(): Int = datas.size
 
@@ -42,11 +41,7 @@ class MyAdapter(val datas: List<DocumentData>) : RecyclerView.Adapter<MyViewHold
         binding.cardDate.text = "${item.startDate} ~ ${item.endDate}"
 
         // 제휴/홍보 상태 설정
-        if (item.isPartnership) {
-            binding.cardStatus.text = "제휴"
-        } else {
-            binding.cardStatus.text = "홍보"
-        }
+        binding.cardStatus.text = if (item.isPartnership) "제휴" else "홍보"
 
         // 이미지가 있으면 첫 번째 이미지 로드
         if (item.imageUrls.isNotEmpty()) {
@@ -56,15 +51,14 @@ class MyAdapter(val datas: List<DocumentData>) : RecyclerView.Adapter<MyViewHold
         }
 
         // 클릭 이벤트 처리 - 카드 배경 클릭 시 DetailActivity로 이동
-        binding.cardView.setOnClickListener {
+        binding.cardBackground.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DetailActivity::class.java).apply {
                 putExtra("DOCUMENT_ID", item.documentId) // Document ID를 전달
+                putExtra("SELECTED_LANGUAGE", selectedLanguage) // 선택한 언어 추가
             }
             context.startActivity(intent)
         }
-
-        Log.d("test", "item root click : $position")
     }
 
     private fun loadImageFromUrl(url: String, imageView: ImageView) {
@@ -87,46 +81,51 @@ data class DocumentData(
 
 class RecyclerFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private var selectedLanguage: String? = null
+
+    companion object {
+        fun newInstance(selectedLanguage: String): RecyclerFragment {
+            val fragment = RecyclerFragment()
+            val args = Bundle()
+            args.putString("selectedLanguage", selectedLanguage)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentRecyclerBinding.inflate(inflater, container, false)
+        selectedLanguage = arguments?.getString("selectedLanguage") ?: "ko"
 
-        // RecyclerView 설정
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-
-        // Firestore에서 데이터 한 번만 가져오기
         loadData { datas ->
-            binding.recyclerView.adapter = MyAdapter(datas)
+            binding.recyclerView.adapter = MyAdapter(datas, selectedLanguage!!)
         }
 
         return binding.root
     }
 
     private fun loadData(callback: (List<DocumentData>) -> Unit) {
-        db.collection("Partnerships")
+        val collectionName = if (selectedLanguage == "en") "Partnerships_en" else "Partnerships"
+
+        db.collection(collectionName)
             .get()
             .addOnSuccessListener { result ->
                 val datas = mutableListOf<DocumentData>()
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-                for (document in result) {
-                    // Firestore 문서에서 데이터 추출
-                    val title = document.getString("title") ?: "제목 없음"
-                    val content = document.getString("content") ?: "내용 없음"
-                    val startDate = document.getTimestamp("startDate")?.let { dateFormat.format(it.toDate()) } ?: "시작 날짜 없음"
-                    val endDate = document.getTimestamp("endDate")?.let { dateFormat.format(it.toDate()) } ?: "종료 날짜 없음"
+                result.forEach { document ->
+                    val documentId = document.id
+                    // 문자열로 저장된 startDate와 endDate 가져오기
+                    val startDate = document.getString("startDate") ?: "시작 날짜 없음"
+                    val endDate = document.getString("endDate") ?: "종료 날짜 없음"
                     val isPartnership = document.getBoolean("isPartnership") ?: false
-                    val imageUrls = document.get("imageUrls") as? List<String> ?: emptyList()
-                    val documentId = document.id  // Firestore 문서 ID
+                    val imageUrls = (document.get("imageUrls") as? List<*>)?.filterIsInstance<String>() ?: emptyList()
 
-                    // DocumentData 객체로 변환하여 리스트에 추가
                     datas.add(
                         DocumentData(
-                            documentId = documentId,  // 문서 ID를 포함
-                            title = title,
-                            content = content,
+                            documentId = documentId,
+                            title = document.getString("title") ?: "제목 없음",
+                            content = document.getString("content") ?: "내용 없음",
                             startDate = startDate,
                             endDate = endDate,
                             isPartnership = isPartnership,
@@ -139,7 +138,6 @@ class RecyclerFragment : Fragment() {
                 callback(datas)
             }
             .addOnFailureListener { exception ->
-                Log.w("Firebase", "Error getting documents.", exception)
                 Toast.makeText(requireContext(), "Error loading data", Toast.LENGTH_SHORT).show()
             }
     }

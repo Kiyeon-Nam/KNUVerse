@@ -73,4 +73,9 @@ dependencies {
 
     // 이미지 로딩 라이브러리 (Glide)
     implementation("com.github.bumptech.glide:glide:4.15.1")
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 }

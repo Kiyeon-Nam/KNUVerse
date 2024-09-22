@@ -34,7 +34,7 @@ class HorizontalImageAdapter(private val imageUrls: List<String>) :
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageUrl = imageUrls[position]
-
+      
         // Glide를 사용하여 이미지를 로드
         Glide.with(holder.imageView.context)
             .load(imageUrl)
@@ -60,8 +60,9 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // 특정 문서의 ID로부터 데이터 가져오기
-        val documentId = intent.getStringExtra("DOCUMENT_ID") ?: return  // 인텐트로 전달된 문서 ID 받기
-        loadDocumentData(documentId)
+        val documentId = intent.getStringExtra("DOCUMENT_ID") ?: return
+        val selectedLanguage = intent.getStringExtra("SELECTED_LANGUAGE") ?: "ko" // 기본값은 한국어
+        loadDocumentData(documentId, selectedLanguage)
 
         // WindowInsets 적용
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -72,25 +73,23 @@ class DetailActivity : AppCompatActivity() {
     }
 
     // Firestore에서 특정 ID의 문서에서 데이터 가져오는 함수
-    private fun loadDocumentData(documentId: String) {
-        db.collection("Partnerships").document(documentId)
+    private fun loadDocumentData(documentId: String, selectedLanguage: String) {
+        val collectionName = if (selectedLanguage == "en") "Partnerships_en" else "Partnerships"
+
+        db.collection(collectionName).document(documentId)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    // Firestore 문서에서 데이터 추출
                     val title = document.getString("title") ?: "제목 없음"
                     val content = document.getString("content") ?: "내용 없음"
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    val startDate =
-                        document.getTimestamp("startDate")?.let { dateFormat.format(it.toDate()) }
-                            ?: "시작 날짜 없음"
-                    val endDate =
-                        document.getTimestamp("endDate")?.let { dateFormat.format(it.toDate()) }
-                            ?: "종료 날짜 없음"
-                    val isPartnership = document.getBoolean("isPartnership") ?: false
-                    val imageUrls = document.get("imageUrls") as? List<String> ?: emptyList()
+                    // 문자열로 저장된 startDate와 endDate 가져오기
+                    val startDate = document.getString("startDate") ?: "시작 날짜 없음"
+                    val endDate = document.getString("endDate") ?: "종료 날짜 없음"
+                    val imageUrls = document.get("imageUrls")
+                        ?.let { it as? List<*> }
+                        ?.filterIsInstance<String>() ?: emptyList()
 
-                    // 바인딩을 통해 UI에 데이터 적용
+                    // Set data to UI
                     binding.detailTitle.text = title
                     binding.detailContent.text = content
                     binding.detailDate.text = "$startDate ~ $endDate"
@@ -108,14 +107,12 @@ class DetailActivity : AppCompatActivity() {
                 Log.w("Firebase", "Error getting document", e)
                 Toast.makeText(this, "데이터를 가져오는 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
-
     }
 
     // RecyclerView 설정 함수
     private fun setupRecyclerView(imageUrls: List<String>) {
         val recyclerView = findViewById<RecyclerView>(R.id.horizontal_recycler_view)
-        recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = HorizontalImageAdapter(imageUrls)
     }
 }
