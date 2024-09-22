@@ -40,26 +40,12 @@
                     style="@style/TextStyle_24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{userName}"
+                    android:text="@string/welcome_default"
                     android:textColor="@android:color/black"
                     android:textFontWeight="600"
                     app:fontWeight="600"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    style="@style/TextStyle_20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="님"
-                    android:textColor="@android:color/black"
-                    android:textFontWeight="400"
-                    android:textSize="16sp"
-                    app:fontWeight="400"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/txtUserName"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
