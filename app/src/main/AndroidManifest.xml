@@ -28,7 +28,8 @@
             android:exported="false" />
         <activity
             android:name=".CertiActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".BookmarkActivity"
             android:exported="true"
