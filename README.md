@@ -22,8 +22,7 @@ KNUV(크누브) - 경북대학교 제휴&홍보 통합 정보 제공 서비스 (
 - 백엔드
 
 ## 시연 영상
-(필수) Youtube 링크
-(선택) Github Repository 페이지에서 바로 볼 수 있도록 넣어주셔도 좋습니다.
+Youtube 링크: https://youtu.be/ILRbnD1UFZo
 
 ## 서비스 소개
 ### 서비스 개요
@@ -50,24 +49,16 @@ KNUV(크누브) - 경북대학교 제휴&홍보 통합 정보 제공 서비스 (
 
 
 
-서비스의 실제 구현 내용과 결과물을 기재한다.
-
-ex)
-1. 실력별 매칭 시스템
-  - 본인이 미리 선택한 탁구 실력에 맞추어 다른 사용자를 매칭해준다.
-  - 매칭된 사용자와의 매칭이 종료된 이후, 상대의 실력을 평가할 수 있다.
-2. 탁구 용품 구매 페이지
-
 |액티비티|화면|설명|
 |:----:|:----------:|:-----:|
-|Main(Korean)|![image](https://github.com/user-attachments/assets/19536e69-3c75-4d74-aa6a-472a20f76d61)|Main 화면은 제휴 정보 목록을 나타낸다.\n 상단의 스피너에서 "Korean" 또는 "English"를 선택할 수 있으며, 선택한 언어에 맞춰 제휴 정보를 제공한다. 상단 우측의 로그인 버튼을 클릭하면 Login 화면으로 전환된다. 카테고리 바에서 특정 카테고리를 선택하면 해당 카테고리의 제휴 정보만 표시된다. 같은 카테고리를 다시 누르면 선택이 취소된다. 제휴 정보 목록에서 특정 제휴 정보 박스를 클릭하면 해당 제휴 정보의 상세 내용을 볼 수 있는 Detail 페이지로 전환된다.|
-|Main(English)|![image](https://github.com/user-attachments/assets/3268e311-fa17-42ad-b91e-86cb96c41744)|- 영어로 표시되는 메인 화면.|
-|Detail(Korean)|![image](https://github.com/user-attachments/assets/c5e978b1-7f5b-4e51-931e-b30ebdbd079d)||
-|Detail(English)|![image](https://github.com/user-attachments/assets/cb798126-5636-4415-baf0-450d36ead79c)|- 영어로 표시되는 상세 화면.|
-|Bookmark|![image](https://github.com/user-attachments/assets/289d2e4a-93cb-4e09-bfac-e8f40c996b00)|- 북마크 목록이 표시되는 화면 - 실제 북마크 기능은 구현하지 못함|
-|Login|![image](https://github.com/user-attachments/assets/34bb6249-2ced-4042-897b-53f1cfd84434)|- 구글 로그인 기능|
-|Certi|![image](https://github.com/user-attachments/assets/0e1b9429-2f65-4999-86db-5ee115bdfe4a)|- 프로필 화면(1) - 로그아웃 기능 - 파일 업로드 및 DB 전송 기능 - 사용자는 사업자등록증 등 자신의 신분을 증명할 자료를 업로드한다.|
-|Request|![image](https://github.com/user-attachments/assets/a22b2509-8c23-42db-b3c0-764e03aa8a55)|- 프로필 화면(2) - (1)에서 인증된 사용자를 대상으로 하는 페이지로, 게시물을 업로드할 수 있다.|
+|Main(Korean)|![image](https://github.com/user-attachments/assets/19536e69-3c75-4d74-aa6a-472a20f76d61)|Main(Korean) 화면은 한국어로 제휴 정보 목록을 나타낸다.<br> 상단의 스피너에서 "Korean" 또는 "English"를 선택할 수 있으며, 선택한 언어에 맞춰 제휴 정보를 제공한다.<br> 상단 우측의 로그인 버튼을 클릭하면 Login 화면으로 전환된다.<br> 카테고리 바에서 특정 카테고리를 선택하면 해당 카테고리의 제휴 정보만 표시된다.<br> 같은 카테고리를 다시 누르면 선택이 취소된다.<br> 제휴 정보 목록에서 특정 제휴 정보 박스를 클릭하면 한국어로 해당 제휴 정보의 상세 내용을 볼 수 있는 Detail 화면으로 전환된다.|
+|Main(English)|![image](https://github.com/user-attachments/assets/3268e311-fa17-42ad-b91e-86cb96c41744)|Main(English) 화면은 영어로 제휴 정보 목록을 나타낸다.<br> 상단의 스피너에서 "Korean" 또는 "English"를 선택할 수 있으며, 선택한 언어에 맞춰 제휴 정보를 제공한다.<br> 상단 우측의 로그인 버튼을 클릭하면 Login 화면으로 전환된다.<br> 카테고리 바에서 특정 카테고리를 선택하면 해당 카테고리의 제휴 정보만 표시된다.<br> 같은 카테고리를 다시 누르면 선택이 취소된다.<br> 제휴 정보 목록에서 특정 제휴 정보 박스를 클릭하면 영어로 해당 제휴 정보의 상세 내용을 볼 수 있는 Detail 화면으로 전환된다.|
+|Detail(Korean)|![image](https://github.com/user-attachments/assets/c5e978b1-7f5b-4e51-931e-b30ebdbd079d)|Detail(Korean) 화면은 한국어로 상세 제휴 정보를 나타낸다.<br> 상세 정보로는 제목, 기간, 전체 사진, 전체 내용이 있다<br> 사진 부분은 좌우로 스크롤할 수 있다.<br> 상단 좌측 버튼을 누르면 Main(Korean) 화면으로 전환된다.| 
+|Detail(English)|![image](https://github.com/user-attachments/assets/cb798126-5636-4415-baf0-450d36ead79c)|Detail(English) 화면은 영어로 상세 제휴 정보를 나타낸다.<br> 상세 정보로는 제목, 기간, 전체 사진, 전체 내용이 있다<br> 사진 부분은 좌우로 스크롤할 수 있다.<br> 상단 좌측 버튼을 누르면 Main(English) 화면로 전환된다.|
+|Bookmark|![image](https://github.com/user-attachments/assets/289d2e4a-93cb-4e09-bfac-e8f40c996b00)|Bookmark 화면은 사용자가 북마크 표시한 제휴 정보 목록이 나타난다.<br> 실제 북마크 기능은 구현하지 못 했다.|
+|Login|![image](https://github.com/user-attachments/assets/34bb6249-2ced-4042-897b-53f1cfd84434)|Login 화면에서 구글 로그인을 할 수 있다.|
+|Certi|![image](https://github.com/user-attachments/assets/0e1b9429-2f65-4999-86db-5ee115bdfe4a)|프로필 화면(1): 로그아웃 기능<br> 파일 업로드 및 DB 전송 기능: 사용자는 사업자등록증 등 자신의 신분을 증명할 자료를 업로드한다.|
+|Request|![image](https://github.com/user-attachments/assets/a22b2509-8c23-42db-b3c0-764e03aa8a55)|프로필 화면(2): (1)에서 인증된 사용자를 대상으로 하는 페이지로, 게시물을 업로드할 수 있다.|
 
 
 
